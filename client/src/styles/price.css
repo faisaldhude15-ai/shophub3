@@ -1,0 +1,45 @@
+.priceBox{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+
+
+.priceBox h2{
+
+color:#B12704;
+
+font-size:24px;
+
+}
+
+
+
+.priceBox del{
+
+color:#777;
+
+font-size:16px;
+
+}
+
+
+
+.priceBox span{
+
+background:#cc0c39;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:5px;
+
+font-weight:bold;
+
+}

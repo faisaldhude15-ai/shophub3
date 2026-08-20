@@ -1,0 +1,59 @@
+/* ==========================================================================
+   FEATURED PRODUCTS - PREMIUM BADGE & HOVER EFFECTS
+   ========================================================================== */
+
+/* 1. فیچرڈ سیکشن کا کنٹینر اور ہیڈنگ لائن */
+.home-page .section-container:nth-of-type(2) h2::after {
+  background-color: #ea580c; /* فیچرڈ کے لیے گہرا اورنج/فائر رنگ */
+}
+
+/* 2. فیچرڈ پروڈکٹ کارڈز پر خاص پریمیم بارڈر اور باریک شیڈو */
+.home-page .section-container:nth-of-type(2) .product-card {
+  border: 1px solid #fed7aa; /* ہلکا اورنج بارڈر */
+  background: linear-gradient(180deg, #ffffff 0%, #fffbf7 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 3. کارڈ کے اوپر چمکتا ہوا "HOT" بیج (Featured Tag) */
+.home-page .section-container:nth-of-type(2) .product-image::before {
+  content: "HOT";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, #ef4444 0%, #ea580c 100%); /* ریڈ اور اورنج گریڈینٹ */
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 4px;
+  z-index: 10;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+  text-transform: uppercase;
+}
+
+/* 4. فیچرڈ کارڈز پر زبردست ہوور اینیمیشن */
+.home-page .section-container:nth-of-type(2) .product-card:hover {
+  border-color: #ea580c;
+  box-shadow: 0 12px 24px rgba(234, 88, 12, 0.12);
+  transform: translateY(-5px);
+}
+
+/* 5. قیمت کو خوبصورت چمکدار بنانے کے لیے */
+.home-page .section-container:nth-of-type(2) .price {
+  color: #dc2626; /* چمکتا ہوا سرخ رنگ */
+  font-size: 1.3rem;
+}
+
+/* 6. فیچرڈ پروڈکٹس کا پریمیم گولڈن بٹن */
+.home-page .section-container:nth-of-type(2) .cart-btn {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  border-color: #d97706;
+  color: #111111;
+}
+
+.home-page .section-container:nth-of-type(2) .cart-btn:hover {
+  background: linear-gradient(180deg, #fcd34d 0%, #f59e0b 100%);
+  border-color: #b45309;
+}

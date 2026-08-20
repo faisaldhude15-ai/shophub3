@@ -1,0 +1,235 @@
+/* ==========================================================================
+   SHOPSPHERE MAIN FRONTEND CATALOG - USER WISHLIST FAVORITES MATRIX
+   ========================================================================== */
+
+/* Universal Outer Page Viewport Base Containers */
+.wishlist-master-viewport {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.wishlist-header-deck h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a; /* Midnight Slate Dark Core Tone */
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wishlist-header-deck p {
+  font-size: 0.96rem;
+  color: #64748b;
+  margin: 0 0 35px 0;
+}
+
+/* Primary Items Layout Deck Board Grid Matrix Alignment */
+.wishlist-products-masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Individual Module Wishlist Container Enclosure Card Element */
+.wishlist-item-card-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.012);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.wishlist-item-card-wrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+  border-color: #cbd5e1;
+}
+
+/* Thumbnail Graphic Frame Wrapper Box Dimensions Specs */
+.wishlist-img-frame {
+  width: 100%;
+  height: 180px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #edf2f7;
+}
+
+.wishlist-img-frame img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+/* Typography Text Metadata Deck Block Rules */
+.wishlist-card-details-deck h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  height: 42px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.wishlist-price-tag {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #b91c1c; /* Hot financial conversion red highlight color variables */
+  margin: 0 0 10px 0;
+}
+
+/* Volume Track Status Labels Indicators Pilling badges */
+.wishlist-stock-status-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: fit-content;
+  margin: 0;
+}
+
+.status-text-in-stock {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.status-text-out-of-stock {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fee2e2;
+}
+
+/* Actions Footer Operations Toolbar Row Row Split Grid */
+.wishlist-actions-footer-row {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Move to Cart Checkout Active Button Trigger CTA */
+.wishlist-move-to-cart-cta {
+  flex: 1;
+  background-color: #ff9900; /* Amazon Yellow Orange Global Corporate Identity Color */
+  color: #111111;
+  border: none;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.wishlist-move-to-cart-cta:hover:not(:disabled) {
+  background-color: #e68a00;
+  color: #ffffff;
+}
+
+.wishlist-move-to-cart-cta:disabled {
+  background-color: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Purge Card out from Array Stack Trash Button Selector */
+.wishlist-purge-trash-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.wishlist-purge-trash-btn:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+/* Empty Fallback UI Panel board elements guidelines mapping links */
+.empty-wishlist-fallback-panel {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 80px 20px;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-wishlist-fallback-panel svg {
+  font-size: 3.5rem;
+}
+
+.empty-wishlist-fallback-panel h3 {
+  font-size: 1.3rem;
+  color: #475569;
+  margin: 0;
+  font-weight: 700;
+}
+
+.empty-wishlist-fallback-panel button {
+  background-color: #131921;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.empty-wishlist-fallback-panel button:hover {
+  background-color: #ff9900;
+  color: #111111;
+}
+
+.wishlist-loader-node {
+  text-align: center;
+  padding: 100px 20px;
+  font-weight: 700;
+  color: #64748b;
+  font-size: 1.05rem;
+}
+
+/* Responsive Viewports Dimensions breaks Matrix handling rules layout rules sheets */
+@media (max-width: 580px) {
+  .wishlist-products-masonry-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,163 @@
+/* ==========================================================================
+   SHOPSPHERE MASTER ADMIN DASHBOARD - FIXED SIDE-BY-SIDE PLATFORM
+   ========================================================================== */
+
+/* Parent structural container locking items side-by-side right next to your fixed sidebar */
+.admin-master-dashboard-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  background-color: #f8fafc; /* Clean Professional Studio Gray Slate Hue tint */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Master Command Content Viewport Framework Container Panel */
+.admin-main-content-viewport {
+  flex: 1 !important;
+  margin-left: 260px !important; /* CORE FIX: Exact 260px horizontal offset so it never slides underneath your fixed sidebar menu */
+  padding: 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 32px !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important; /* Essential constraint to block inner grid column line overflows */
+}
+
+/* Header Node Title Layout Typography Frame */
+.admin-viewport-header-node h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a; /* Midnight Slate Dark Core tone */
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+.admin-viewport-subtitle {
+  font-size: 0.98rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Core Analytical Display Panels Matrix Grid Alignment rules */
+.admin-analytical-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+  gap: 24px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Individual Module Matrix Element Card Container Blocks Framework Config sheets */
+.admin-stats-card-node {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.admin-stats-card-node:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.06);
+}
+
+/* Left Accent border indicator track nodes markers */
+.stats-card-inner-decorator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: currentColor;
+}
+
+/* Internal Card Typography and Data Display Fields configurations styling rules */
+.admin-stats-card-node h3 {
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #475569;
+  margin: 0 0 16px 0;
+}
+
+.stats-counter-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1;
+}
+
+.stats-counter-value-currency {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1;
+}
+
+.stats-trend-indicator-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  background-color: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+/* Micro Color Schemes Variant bindings tracking configurations elements mapping keys */
+.text-accent-blue { color: #3b82f6; }
+.text-accent-purple { color: #8b5cf6; }
+.text-accent-green { color: #10b981; }
+.text-accent-orange { color: #ff9900; }
+.text-accent-teal { color: #0d9488; }
+
+/* Dynamic Full Grid Width Spanning Rule Selector Configurations keys */
+.stats-card-grid-span-full {
+  grid-column: span 2;
+}
+
+/* Viewport Responsiveness Handling Media Query Config sheet layout guidelines */
+@media (max-width: 1024px) {
+  .stats-card-grid-span-full {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 991px) {
+  .admin-main-content-viewport {
+    margin-left: 0 !important; /* Drops margin boundary row offset if layout scales smaller */
+    padding: 30px 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-master-dashboard-layout {
+    flex-direction: column !important;
+  }
+  .admin-main-content-viewport {
+    padding: 24px 20px !important;
+    gap: 24px !important;
+    width: 100% !important;
+  }
+  .admin-viewport-header-node h1 {
+    font-size: 1.7rem;
+  }
+  .admin-analytical-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}

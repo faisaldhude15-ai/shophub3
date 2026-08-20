@@ -1,0 +1,81 @@
+.bestSeller{
+    width:100%;
+    padding:40px 20px;
+    background:#f8fafc;
+}
+
+.sectionHeader{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.sectionHeader h2{
+    font-size:32px;
+    color:#1e293b;
+    margin-bottom:8px;
+}
+
+.sectionHeader p{
+    color:#64748b;
+}
+
+.bestSellerGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.bestSellerCard{
+    background:#fff;
+    border-radius:12px;
+    padding:15px;
+    border:1px solid #e2e8f0;
+    transition:.3s;
+}
+
+.bestSellerCard:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.toolbar{
+    display:flex;
+    justify-content:center;
+    margin-bottom:12px;
+}
+
+.addBtn,
+.removeBtn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    color:#fff;
+    font-weight:600;
+    transition:.3s;
+}
+
+.addBtn{
+    background:#16a34a;
+}
+
+.addBtn:hover{
+    background:#15803d;
+}
+
+.removeBtn{
+    background:#dc2626;
+}
+
+.removeBtn:hover{
+    background:#b91c1c;
+}
+
+.loading{
+    text-align:center;
+    padding:50px;
+    font-size:22px;
+}

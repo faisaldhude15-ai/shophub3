@@ -1,0 +1,160 @@
+/* ==========================================================================
+   SHOPSPHERE ADMINISTRATIVE TERMINAL - REVIEWS TABLE MANAGMENT
+   ========================================================================== */
+
+/* Parent Flex Layout Box Grid Configuration Rules */
+.admin-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  min-height: 100vh !important;
+  background-color: #f8fafc; /* Professional Cool Slate tint background */
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Master Command Content Viewport (Offsets cleanly right next to your fixed sidebar) */
+.admin-content {
+  flex: 1 !important;
+  margin-left: 260px; /* ⚡ Dynamic offset matching your 260px fixed sidebar width */
+  padding: 40px !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important; /* Prevents cell overflow content from distorting layout widths */
+}
+
+/* Page Primary Title Accentuation Typography */
+.admin-content h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #0f172a; /* Midnight Slate Dark Core Tone */
+  margin: 0 0 28px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Tabular Table Content Outer Framework Card Enclosure Wrapper */
+.reviews-table {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.015);
+  overflow: hidden; /* Encapsulates border-radius clean inside table cells overflow paths */
+  width: 100%;
+}
+
+/* Responsive Table Wrapper layer configuration */
+.reviews-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.94rem;
+}
+
+/* Table Header Row Layout Architecture */
+.reviews-table thead tr {
+  background-color: #131921; /* Rich Dark Slate color matching your sidebar branding header */
+  color: #ffffff;
+}
+
+.reviews-table th {
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* Table Body Cells Row Element Properties Layer Sheets */
+.reviews-table tbody tr {
+  border-bottom: 1px solid #edf2f7;
+  transition: background-color 0.2s ease;
+}
+
+/* Zebra Striping Highlight Accents for premium readability */
+.reviews-table tbody tr:nth-of-type(even) {
+  background-color: #f8fafc;
+}
+
+.reviews-table tbody tr:hover {
+  background-color: #f1f5f9; /* Soft highlight background on mouse row hover state */
+}
+
+.reviews-table td {
+  padding: 16px 20px;
+  color: #334155; /* Soft readable charcoal typography tone layer */
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+/* Targeted structural adjustments applied specific data columns */
+.reviews-table td:nth-child(1) {
+  font-weight: 700; /* Bolds User Name columns text nodes */
+  color: #0f172a;
+  text-transform: capitalize;
+}
+
+.reviews-table td:nth-child(2) {
+  font-weight: 600; /* Bolds Product Name columns */
+}
+
+.reviews-table td:nth-child(3) {
+  font-size: 1rem; /* Adjusts scale size of gold unicode stars symbols */
+  white-space: nowrap;
+}
+
+.reviews-table td:nth-child(4) {
+  max-width: 320px; /* Clamps feedback paragraphs lengths to look structured and tight */
+  word-break: break-word;
+}
+
+/* No Reviews Found Empty Fallback Cell Box */
+.reviews-table td[colSpan="5"] {
+  text-align: center;
+  padding: 40px;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* 🗑️ PURGE COMMENT DELETE BUTTON TRIGGER ACCENT MODULE */
+.delete-review {
+  background-color: #fef2f2;
+  color: #dc2626; /* Deep crimson red tone matching your logout button theme variables */
+  border: 1px solid #fee2e2;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.05);
+}
+
+.delete-review:hover {
+  background-color: #dc2626; /* Inverts fully on mouse hover states elements */
+  color: #ffffff;
+  border-color: #dc2626;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.18);
+}
+
+/* Responsive Viewports Dimensions Boundary Breakpoints Handling Matrix Rules */
+@media (max-width: 991px) {
+  .admin-content {
+    margin-left: 0; /* Drops boundary offset layout if sidebar wraps row formats on screens */
+    padding: 30px 20px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .reviews-table {
+    overflow-x: auto; /* Activates safety horizontal grid scroll bars for mobile widths */
+    display: block;
+  }
+  .admin-content h1 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  .reviews-table th, .reviews-table td {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+}

@@ -1,0 +1,107 @@
+/* ==========================
+   COLOR SELECTOR
+========================== */
+
+.colorSelector {
+  width: 100%;
+  margin: 25px 0;
+}
+
+.selectorTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* ==========================
+   COLOR LIST
+========================== */
+
+.colorList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ==========================
+   COLOR BUTTON
+========================== */
+
+.colorBtn {
+  padding: 12px 18px;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  transition: all .3s ease;
+}
+
+.colorBtn:hover {
+  border-color: #ff9900;
+  background: #fff8e6;
+  color: #111;
+}
+
+/* ==========================
+   ACTIVE COLOR
+========================== */
+
+.colorBtn.active {
+  background: #FFD814;
+  border-color: #F7CA00;
+  color: #111;
+  box-shadow: 0 4px 12px rgba(247, 202, 0, 0.35);
+}
+
+/* ==========================
+   SELECTED TEXT
+========================== */
+
+.selectedColor {
+  margin-top: 18px;
+  font-size: 16px;
+  color: #555;
+}
+
+.selectedColor span {
+  font-weight: 700;
+  color: #111;
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 768px) {
+
+  .selectorTitle {
+    font-size: 18px;
+  }
+
+  .colorBtn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 480px) {
+
+  .colorList {
+    gap: 10px;
+  }
+
+  .colorBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+}

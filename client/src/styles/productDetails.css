@@ -1,0 +1,257 @@
+/* ==========================================================================
+   SHOPSPHERE MAIN FRONTEND CATALOG - PRODUCT DETAILS PAGE LAYOUT
+   ========================================================================== */
+
+/* Universal Outer Viewport Container Frame */
+.product-details-master-viewport {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+}
+
+/* Horizontal Split Row Layout Core Columns */
+.product-core-info-split-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Floating Image Gallery Showcase Box Display Frame */
+.product-gallery-box {
+  flex: 1.2;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 480px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.012);
+  overflow: hidden;
+}
+
+.product-gallery-box img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-gallery-box:hover img {
+  transform: scale(1.03); /* Subtle image scale elevation on zoom focus hover state */
+}
+
+/* Product Primary Typography and Metric Descriptions Deck */
+.product-info-text-deck {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.product-info-text-deck h1 {
+  font-size: 2.1rem;
+  color: #111111;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.product-info-text-deck .brand-tag-string {
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 600;
+  margin: 0;
+  background: #f1f5f9;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Star Reviews Indicator Container Holder Pill */
+.rating-stars-wrapper-holder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fffdf5;
+  border: 1px solid #fef3c7;
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Financial Pricing Blocks Alignment Row Sheet */
+.price-box-flex-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.current-active-price-text {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.crossed-out-old-price-text {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+  margin: 0;
+}
+
+/* Burning Red Flash Savings Percentage Bubble Marker Badge */
+.discount-percentage-badge-bubble {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.18);
+}
+
+/* Written Specs Paragraph Block Text Layout */
+.product-body-description-paragraph {
+  font-size: 1rem;
+  color: #334155;
+  line-height: 1.7;
+  margin: 0;
+  border-top: 1px dashed #e2e8f0;
+  border-bottom: 1px dashed #e2e8f0;
+  padding: 16px 0;
+}
+
+/* Inventory Availability Indicator Tracker Text Fields */
+.stock-volume-tracer-status {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stock-in-indicator-label {
+  color: #16a34a; /* Emerald green theme active label */
+}
+
+.stock-out-indicator-label {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 4px 12px;
+  border-radius: 6px;
+  width: fit-content;
+  border: 1px solid #fee2e2;
+}
+
+/* Transaction Purchase CTA Buttons Row Toolbar Matrix */
+.product-operational-actions-toolbar {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.details-add-cart-cta-btn {
+  flex: 2;
+  background: #ff9900; /* Defacto global orange brand theme color */
+  color: #111111;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(255, 153, 0, 0.2);
+  transition: background 0.2s, color 0.2s;
+}
+
+.details-add-cart-cta-btn:hover:not(:disabled) {
+  background: #e68a00;
+  color: #ffffff;
+}
+
+.details-add-cart-cta-btn:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.details-wishlist-toggle-btn {
+  flex: 0.5;
+  background: #ffffff;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.details-wishlist-toggle-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+/* User Reviews Section Comments Masonry List Enclosures */
+.reviews-section-masonry-wrapper {
+  border-top: 2px solid #f1f5f9;
+  padding-top: 35px;
+  width: 100%;
+}
+
+.reviews-section-masonry-wrapper h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+}
+
+.empty-reviews-fallback-text {
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 500;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  width: fit-content;
+}
+
+.product-not-found-container {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+/* Responsive Viewports Dimensions Breaks Matrix Handling Guidelines */
+@media (max-width: 850px) {
+  .product-core-info-split-row {
+    flex-direction: column;
+  }
+  .product-gallery-box {
+    width: 100%;
+    height: 350px;
+  }
+  .product-operational-actions-toolbar {
+    flex-direction: column;
+  }
+}

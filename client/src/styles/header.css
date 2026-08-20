@@ -1,0 +1,297 @@
+/* =========================
+   Header Main
+========================= */
+
+.header{
+
+width:100%;
+
+background:#131921;
+
+color:white;
+
+}
+
+
+
+/* =========================
+   Top Delivery Bar
+========================= */
+
+.top-bar{
+
+background:#232f3e;
+
+height:35px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:14px;
+
+font-weight:600;
+
+color:white;
+
+}
+
+
+.top-bar p{
+
+margin:0;
+
+}
+
+
+
+/* =========================
+   Header Main Section
+========================= */
+
+
+.header-main{
+
+height:70px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 40px;
+
+gap:25px;
+
+}
+
+
+
+/* Logo */
+
+.header-logo a{
+
+text-decoration:none;
+
+font-size:32px;
+
+font-weight:900;
+
+color:#ff9900;
+
+}
+
+
+
+.header-logo a:hover{
+
+color:#febd69;
+
+}
+
+
+
+
+
+/* =========================
+   Location
+========================= */
+
+
+.header-location{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+cursor:pointer;
+
+}
+
+
+
+.header-location svg{
+
+font-size:22px;
+
+}
+
+
+
+.header-location span{
+
+display:block;
+
+font-size:12px;
+
+color:#ddd;
+
+}
+
+
+
+.header-location strong{
+
+display:block;
+
+font-size:15px;
+
+}
+
+
+
+
+
+/* =========================
+   Account
+========================= */
+
+
+.header-account a,
+.header-orders a,
+.header-cart a{
+
+
+text-decoration:none;
+
+color:white;
+
+display:flex;
+
+flex-direction:column;
+
+cursor:pointer;
+
+}
+
+
+
+.header-account span,
+.header-orders span{
+
+font-size:12px;
+
+}
+
+
+
+.header-account strong,
+.header-orders strong{
+
+font-size:15px;
+
+}
+
+
+
+
+
+/* =========================
+   Cart
+========================= */
+
+
+.header-cart a{
+
+flex-direction:row;
+
+align-items:center;
+
+gap:8px;
+
+}
+
+
+
+.header-cart svg{
+
+font-size:28px;
+
+color:#ff9900;
+
+}
+
+
+
+.header-cart strong{
+
+font-size:18px;
+
+}
+
+
+
+
+
+/* =========================
+   Hover
+========================= */
+
+
+.header-main a:hover{
+
+color:#ff9900;
+
+}
+
+
+
+
+/* =========================
+   Mobile
+========================= */
+
+
+@media(max-width:768px){
+
+
+.header-main{
+
+padding:0 15px;
+
+gap:12px;
+
+overflow-x:auto;
+
+}
+
+
+
+.header-logo a{
+
+font-size:22px;
+
+}
+
+
+
+.header-location{
+
+display:none;
+
+}
+
+
+
+.header-account strong,
+.header-orders strong{
+
+font-size:12px;
+
+}
+
+
+
+.header-cart svg{
+
+font-size:22px;
+
+}
+
+
+}

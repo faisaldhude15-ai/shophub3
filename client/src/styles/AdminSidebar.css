@@ -1,0 +1,150 @@
+/* ===========================
+   ADMIN SIDEBAR
+=========================== */
+
+.admin-sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #111827;
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: 0.3s;
+  box-shadow: 3px 0 10px rgba(0,0,0,.15);
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.sidebar-logo {
+  padding: 25px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.sidebar-logo h2 {
+  font-size: 28px;
+  color: #f59e0b;
+  margin-bottom: 5px;
+}
+
+.sidebar-logo p {
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+/* ===========================
+   MENU
+=========================== */
+
+.admin-sidebar nav {
+  margin-top: 15px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: #d1d5db;
+
+  padding: 15px 22px;
+
+  text-decoration: none;
+
+  transition: .3s;
+
+  border-left: 4px solid transparent;
+}
+
+.sidebar-link:hover {
+  background: #1f2937;
+  color: white;
+  border-left: 4px solid #f59e0b;
+}
+
+.sidebar-link.active {
+  background: #f59e0b;
+  color: #111827;
+  font-weight: bold;
+  border-left: 4px solid white;
+}
+
+.icon {
+  font-size: 20px;
+  min-width: 22px;
+}
+
+.sidebar-link span:last-child {
+  font-size: 15px;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+.admin-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 20px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.admin-sidebar{
+
+width:80px;
+
+}
+
+.sidebar-logo h2,
+.sidebar-logo p,
+.sidebar-link span:last-child{
+
+display:none;
+
+}
+
+.sidebar-link{
+
+justify-content:center;
+
+padding:18px 0;
+
+}
+
+.icon{
+
+font-size:24px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.admin-sidebar{
+
+left:-260px;
+
+}
+
+.admin-sidebar.show{
+
+left:0;
+
+z-index:9999;
+
+}
+
+}
