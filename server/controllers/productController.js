@@ -1,97 +1,257 @@
 const Product = require("../models/Product");
 
-// ==========================================================================
-// 1. CREATE PRODUCT (Crash Proof Setup for Dynamic Multi-Files)
+// ======================================================
+// HELPER
+// ======================================================
+
+const parseBoolean = (value) => {
+  if (value === true || value === "true" || value === "1") {
+    return true;
+  }
+
+  return false;
+};
+
+const getUploadedImage = (files, fieldName) => {
+  if (
+    files &&
+    files[fieldName] &&
+    Array.isArray(files[fieldName]) &&
+    files[fieldName].length > 0
+  ) {
+    return `/uploads/products/${files[fieldName][0].filename}`;
+  }
+
+  return "";
+};
+
+// ======================================================
+// 1. CREATE PRODUCT
 // POST /api/products
-// ==========================================================================
+// ======================================================
+
 const createProduct = async (req, res) => {
   try {
-    const { name, price, discountPrice, category, brand, stock, description } = req.body;
+    console.log("\n========== CREATE PRODUCT ==========");
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
+    console.log("====================================\n");
+
+    const {
+      name,
+      price,
+      discountPrice,
+      category,
+      brand,
+      stock,
+      description,
+      isBestSeller,
+      isNewArrival,
+      isFlashDeal,
+    } = req.body;
+
     const files = req.files || {};
 
-    // Baseline validation check
-    if (!name || !price || !brand || stock === undefined) {
+    // ==================================================
+    // REQUIRED VALIDATION
+    // ==================================================
+
+    if (!name || !name.trim()) {
       return res.status(400).json({
         success: false,
-        message: "Please fill out all mandatory fields marked with an asterisk (*)."
+        message: "Product title is required.",
       });
     }
 
-    // Core product display pictures pipeline array parse
-    let baseImagesArray = [];
-    if (files["images"] && files["images"].length > 0) {
-      baseImagesArray = files["images"].map(f => `/uploads/products/${f.filename}`);
-    } else if (req.body.images) {
-      baseImagesArray = Array.isArray(req.body.images) ? req.body.images : [req.body.images];
-    } else {
-      baseImagesArray = ["/images/default.jpg"];
+    if (price === undefined || price === "") {
+      return res.status(400).json({
+        success: false,
+        message: "Product price is required.",
+      });
     }
 
-    // Formatting product data payload to secure MongoDB schema matching standard
-    const productPayload = {
-      name,
-      brand,
-      category: category || "Mobiles",
-      description: description || "",
+    if (isNaN(Number(price))) {
+      return res.status(400).json({
+        success: false,
+        message: "Product price must be a valid number.",
+      });
+    }
+
+    if (!brand || !brand.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Brand is required.",
+      });
+    }
+
+    if (stock === undefined || stock === "") {
+      return res.status(400).json({
+        success: false,
+        message: "Stock is required.",
+      });
+    }
+
+    if (isNaN(Number(stock))) {
+      return res.status(400).json({
+        success: false,
+        message: "Stock must be a valid number.",
+      });
+    }
+
+    // ==================================================
+    // MAIN IMAGE
+    // ==================================================
+
+    let images = [];
+
+    const mainImage = getUploadedImage(files, "images");
+
+    if (mainImage) {
+      images.push(mainImage);
+    }
+
+    // If no image uploaded
+    if (images.length === 0) {
+      images.push("/images/default.jpg");
+    }
+
+    // ==================================================
+    // OPTIONAL SPECIAL IMAGES
+    // ==================================================
+
+    const bestSellerImage = getUploadedImage(
+      files,
+      "bestSellerImage"
+    );
+
+    const newArrivalImage = getUploadedImage(
+      files,
+      "newArrivalImage"
+    );
+
+    const flashDealImage = getUploadedImage(
+      files,
+      "flashDealImage"
+    );
+
+    // ==================================================
+    // PRODUCT DATA
+    // ==================================================
+
+    const productData = {
+      name: name.trim(),
+
+      brand: brand.trim(),
+
+      category:
+        category && category.trim()
+          ? category.trim()
+          : "General",
+
+      description:
+        description && description.trim()
+          ? description.trim()
+          : "",
+
       price: Number(price),
-      discountPrice: discountPrice ? Number(discountPrice) : undefined,
+
       stock: Number(stock),
-      images: baseImagesArray,
+
+      images,
+
       isActive: true,
 
-      // Parse string representation booleans directly securely
-      isBestSeller: req.body.isBestSeller === "true" || req.body.isBestSeller === true,
-      isNewArrival: req.body.isNewArrival === "true" || req.body.isNewArrival === true,
-      isFlashDeal: req.body.isFlashDeal === "true" || req.body.isFlashDeal === true,
+      isBestSeller: parseBoolean(isBestSeller),
 
-      // ⚡ CRASH FIX: Checks if specific key array exists safely BEFORE searching index [0] property
-      bestSellerImage: files["bestSellerImage"] && files["bestSellerImage"].length > 0 ? `/uploads/products/${files["bestSellerImage"][0].filename}` : "",
-      newArrivalImage: files["newArrivalImage"] && files["newArrivalImage"].length > 0 ? `/uploads/products/${files["newArrivalImage"][0].filename}` : "",
-      flashDealImage: files["flashDealImage"] && files["flashDealImage"].length > 0 ? `/uploads/products/${files["flashDealImage"][0].filename}` : ""
+      isNewArrival: parseBoolean(isNewArrival),
+
+      isFlashDeal: parseBoolean(isFlashDeal),
     };
 
-    const product = await Product.create(productPayload);
+    // ==================================================
+    // DISCOUNT PRICE
+    // ==================================================
 
-    res.status(201).json({
+    if (
+      discountPrice !== undefined &&
+      discountPrice !== "" &&
+      !isNaN(Number(discountPrice))
+    ) {
+      productData.discountPrice = Number(discountPrice);
+    }
+
+    // ==================================================
+    // SPECIAL IMAGES
+    // ==================================================
+
+    if (bestSellerImage) {
+      productData.bestSellerImage = bestSellerImage;
+    }
+
+    if (newArrivalImage) {
+      productData.newArrivalImage = newArrivalImage;
+    }
+
+    if (flashDealImage) {
+      productData.flashDealImage = flashDealImage;
+    }
+
+    // ==================================================
+    // CREATE PRODUCT
+    // ==================================================
+
+    const product = await Product.create(productData);
+
+    console.log("PRODUCT CREATED:", product._id);
+
+    return res.status(201).json({
       success: true,
-      message: "Product created successfully! 🚀",
-      product
+      message: "Product created successfully!",
+      product,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("CREATE PRODUCT ERROR:", error);
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-// ==========================================================================
+// ======================================================
 // 2. GET ALL PRODUCTS
 // GET /api/products
-// ==========================================================================
+// ======================================================
+
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find({ isActive: true }).sort({
-      createdAt: -1
+    const products = await Product.find({
+      isActive: true,
+    }).sort({
+      createdAt: -1,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       count: products.length,
-      products
+      products,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("GET PRODUCTS ERROR:", error);
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-// ==========================================================================
+// ======================================================
 // 3. GET SINGLE PRODUCT
 // GET /api/products/:id
-// ==========================================================================
+// ======================================================
+
 const getSingleProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -99,113 +259,240 @@ const getSingleProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({
         success: false,
-        message: "Product not found"
+        message: "Product not found.",
       });
     }
 
+    // Increase views
     product.views = (product.views || 0) + 1;
+
     await product.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      product
+      product,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("GET SINGLE PRODUCT ERROR:", error);
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-// ==========================================================================
-// 4. UPDATE PRODUCT (Crash Proof Update Mapping Setup)
+// ======================================================
+// 4. UPDATE PRODUCT
 // PUT /api/products/:id
-// ==========================================================================
+// ======================================================
+
 const updateProduct = async (req, res) => {
   try {
+    console.log("\n========== UPDATE PRODUCT ==========");
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
+    console.log("====================================\n");
+
     const files = req.files || {};
-    let updateFields = { ...req.body };
 
-    if (req.body.isBestSeller !== undefined) updateFields.isBestSeller = req.body.isBestSeller === "true" || req.body.isBestSeller === true;
-    if (req.body.isNewArrival !== undefined) updateFields.isNewArrival = req.body.isNewArrival === "true" || req.body.isNewArrival === true;
-    if (req.body.isFlashDeal !== undefined) updateFields.isFlashDeal = req.body.isFlashDeal === "true" || req.body.isFlashDeal === true;
+    const updateFields = {};
 
-    if (files["images"] && files["images"].length > 0) {
-      updateFields.images = files["images"].map(f => `/uploads/products/${f.filename}`);
+    // ==================================================
+    // TEXT FIELDS
+    // ==================================================
+
+    if (req.body.name !== undefined) {
+      updateFields.name = req.body.name.trim();
     }
-    
-    // ⚡ CRASH FIX: Checking existence maps safely during update executions
-    if (files["bestSellerImage"] && files["bestSellerImage"].length > 0) {
-      updateFields.bestSellerImage = `/uploads/products/${files["bestSellerImage"][0].filename}`;
+
+    if (req.body.brand !== undefined) {
+      updateFields.brand = req.body.brand.trim();
     }
-    if (files["newArrivalImage"] && files["newArrivalImage"].length > 0) {
-      updateFields.newArrivalImage = `/uploads/products/${files["newArrivalImage"][0].filename}`;
+
+    if (req.body.category !== undefined) {
+      updateFields.category = req.body.category.trim();
     }
-    if (files["flashDealImage"] && files["flashDealImage"].length > 0) {
-      updateFields.flashDealImage = `/uploads/products/${files["flashDealImage"][0].filename}`;
+
+    if (req.body.description !== undefined) {
+      updateFields.description = req.body.description;
     }
+
+    // ==================================================
+    // PRICE
+    // ==================================================
+
+    if (
+      req.body.price !== undefined &&
+      req.body.price !== ""
+    ) {
+      updateFields.price = Number(req.body.price);
+    }
+
+    // ==================================================
+    // DISCOUNT PRICE
+    // ==================================================
+
+    if (
+      req.body.discountPrice !== undefined &&
+      req.body.discountPrice !== ""
+    ) {
+      updateFields.discountPrice = Number(
+        req.body.discountPrice
+      );
+    }
+
+    // ==================================================
+    // STOCK
+    // ==================================================
+
+    if (
+      req.body.stock !== undefined &&
+      req.body.stock !== ""
+    ) {
+      updateFields.stock = Number(req.body.stock);
+    }
+
+    // ==================================================
+    // BOOLEAN FIELDS
+    // ==================================================
+
+    if (req.body.isBestSeller !== undefined) {
+      updateFields.isBestSeller = parseBoolean(
+        req.body.isBestSeller
+      );
+    }
+
+    if (req.body.isNewArrival !== undefined) {
+      updateFields.isNewArrival = parseBoolean(
+        req.body.isNewArrival
+      );
+    }
+
+    if (req.body.isFlashDeal !== undefined) {
+      updateFields.isFlashDeal = parseBoolean(
+        req.body.isFlashDeal
+      );
+    }
+
+    // ==================================================
+    // MAIN IMAGE
+    // ==================================================
+
+    const mainImage = getUploadedImage(files, "images");
+
+    if (mainImage) {
+      updateFields.images = [mainImage];
+    }
+
+    // ==================================================
+    // SPECIAL IMAGES
+    // ==================================================
+
+    const bestSellerImage = getUploadedImage(
+      files,
+      "bestSellerImage"
+    );
+
+    if (bestSellerImage) {
+      updateFields.bestSellerImage = bestSellerImage;
+    }
+
+    const newArrivalImage = getUploadedImage(
+      files,
+      "newArrivalImage"
+    );
+
+    if (newArrivalImage) {
+      updateFields.newArrivalImage = newArrivalImage;
+    }
+
+    const flashDealImage = getUploadedImage(
+      files,
+      "flashDealImage"
+    );
+
+    if (flashDealImage) {
+      updateFields.flashDealImage = flashDealImage;
+    }
+
+    // ==================================================
+    // UPDATE
+    // ==================================================
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { $set: updateFields },
+      {
+        $set: updateFields,
+      },
       {
         new: true,
-        runValidators: true
+        runValidators: true,
       }
     );
 
     if (!product) {
       return res.status(404).json({
         success: false,
-        message: "Product not found"
+        message: "Product not found.",
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Product updated successfully!",
-      product
+      product,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("UPDATE PRODUCT ERROR:", error);
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-// ==========================================================================
+// ======================================================
 // 5. DELETE PRODUCT
 // DELETE /api/products/:id
-// ==========================================================================
+// ======================================================
+
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
+    const product = await Product.findByIdAndDelete(
+      req.params.id
+    );
 
     if (!product) {
       return res.status(404).json({
         success: false,
-        message: "Product not found"
+        message: "Product not found.",
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: "Product deleted completely from system core records logs list!"
+      message: "Product deleted successfully!",
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("DELETE PRODUCT ERROR:", error);
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
+
+// ======================================================
+// EXPORT
+// ======================================================
 
 module.exports = {
   createProduct,
   getProducts,
   getSingleProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

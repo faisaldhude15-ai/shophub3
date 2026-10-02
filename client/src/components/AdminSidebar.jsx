@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+
 import {
   FaTachometerAlt,
   FaUsers,
@@ -15,6 +16,7 @@ import {
   FaEnvelope,
   FaCog
 } from "react-icons/fa";
+
 import "../../styles/adminSidebar.css";
 
 const AdminSidebar = () => {

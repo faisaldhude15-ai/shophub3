@@ -2,48 +2,133 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
-const fs = require("fs"); // ⚡ Automatic directory check karne ke liye add kiya
+const fs = require("fs");
 
 const {
   createProduct,
   getProducts,
   getSingleProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } = require("../controllers/productController");
 
-// Multer Disk Storage Engine Setup
+// ======================================================
+// UPLOAD DIRECTORY
+// ======================================================
+
+const uploadDir = path.join(process.cwd(), "uploads", "products");
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// ======================================================
+// MULTER STORAGE
+// ======================================================
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = "uploads/products/";
-    
-    // ⚡ Agar folder nahi bana hua, toh yeh line khud folder bana degi
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    
-    cb(null, dir);
+    cb(null, uploadDir);
   },
+
   filename: (req, file, cb) => {
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-  }
+    const extension = path.extname(file.originalname);
+
+    const filename =
+      `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1e9)}` +
+      extension;
+
+    cb(null, filename);
+  },
 });
 
-const upload = multer({ storage });
+// ======================================================
+// FILE FILTER
+// ======================================================
 
-// Multi-field configuration array validation parser middleware
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = /jpeg|jpg|png|webp|gif/;
+
+  const extension = allowedTypes.test(
+    path.extname(file.originalname).toLowerCase()
+  );
+
+  const mimeType = allowedTypes.test(file.mimetype);
+
+  if (extension && mimeType) {
+    cb(null, true);
+  } else {
+    cb(
+      new Error(
+        "Only JPG, JPEG, PNG, WEBP and GIF images are allowed."
+      )
+    );
+  }
+};
+
+// ======================================================
+// MULTER
+// ======================================================
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+});
+
+// ======================================================
+// PRODUCT IMAGE FIELDS
+// ======================================================
+
 const uploadFields = upload.fields([
-  { name: "images", maxCount: 1 },
-  { name: "bestSellerImage", maxCount: 1 },
-  { name: "newArrivalImage", maxCount: 1 },
-  { name: "flashDealImage", maxCount: 1 }
+  {
+    name: "images",
+    maxCount: 1,
+  },
+  {
+    name: "bestSellerImage",
+    maxCount: 1,
+  },
+  {
+    name: "newArrivalImage",
+    maxCount: 1,
+  },
+  {
+    name: "flashDealImage",
+    maxCount: 1,
+  },
 ]);
 
-// Routing Endpoints Maps 
+// ======================================================
+// CREATE PRODUCT
+// ======================================================
+
 router.post("/", uploadFields, createProduct);
+
+// ======================================================
+// GET ALL PRODUCTS
+// ======================================================
+
 router.get("/", getProducts);
+
+// ======================================================
+// GET SINGLE PRODUCT
+// ======================================================
+
 router.get("/:id", getSingleProduct);
+
+// ======================================================
+// UPDATE PRODUCT
+// ======================================================
+
 router.put("/:id", uploadFields, updateProduct);
+
+// ======================================================
+// DELETE PRODUCT
+// ======================================================
+
 router.delete("/:id", deleteProduct);
 
 module.exports = router;
